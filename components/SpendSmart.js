@@ -3,13 +3,16 @@ import {
 	Text,
 	View,
 	Navigator,
-	TouchableHighlight
+	TouchableHighlight,
+	AppState
 } from 'react-native';
 import styles from '../styles/styles.js';
 import config from '../configs/config.js';
+import { getSortedByDate } from '../helpers/data.js';
 import Main from './Main.js';
 import AddSum from './AddSum.js';
 import List from './List.js';
+import Charts from './Charts.js';
 import request from 'superagent';
 
 export default class SpendSmart extends Component {
@@ -18,101 +21,150 @@ export default class SpendSmart extends Component {
 		connectionError: false
 	}
 
-	fetchData = () =>  {
+	componentDidMount() {
+		AppState.addEventListener('change', this._handleAppStateChange);
+		this.fetchData();
+	}
+
+	componentWillUnmount() {
+		AppState.removeEventListener('change', this._handleAppStateChange);
+	}
+
+	fetchData = () => {
 		this.setState({ connectionError: false });
 		request
 			.get(config.api)
 			.end((err, res) => {
 				if (err || !res.ok) {
-					console.log(err);
 					this.setState({ connectionError: true });
 				} else {
-					this.setState({ data: res.body });
+					this.setState({ data: getSortedByDate(res.body) });
 				}
 			});
 	}
 
-	componentDidMount() {
-		this.fetchData()
+	_handleAppStateChange = (currentAppState) => {
+		if (currentAppState === 'active') {
+			this.fetchData();
+		}
 	}
 
 	renderScene = (route, navigator) => {
-		if (route.name == 'Main') {
-			return <Main navigator={ navigator } { ...route.passProps } data={ this.state.data } />
+		if (route.name === 'Main') {
+			return (
+				<Main navigator={ navigator } { ...route.passProps } data={ this.state.data } />
+			);
 		}
-		if (route.name == 'Add') {
-			return <AddSum navigator={ navigator } { ...route.passProps } data={ this.state.data }  />
+		if (route.name === 'Add') {
+			return (
+				<AddSum navigator={ navigator } { ...route.passProps } data={ this.state.data } />
+			);
 		}
-		if (route.name == 'List') {
-			return <List navigator={ navigator } { ...route.passProps } data={ this.state.data }  />
+		if (route.name === 'List') {
+			return (
+				<List navigator={ navigator } { ...route.passProps } data={ this.state.data } />
+			);
+		}
+		if (route.name === 'Charts') {
+			return (
+				<Charts navigator={ navigator } { ...route.passProps } data={ this.state.data } />
+			);
 		}
 	}
 
+	handleTryAgain = () => {
+		this.fetchData();
+	}
+
 	render() {
-		if (this.state.connectionError) return (
-			<View style={styles.container}>
-				<Text style={styles.loading}>Connection Error..</Text>
-				<Text style={styles.loading} onPress={this.fetchData}>Try again</Text>
-			</View>
-		)
+		if (this.state.connectionError) {
+			return (
+				<View style={ styles.container }>
+					<Text style={ styles.loading }>{ 'Connection Error..' }</Text>
+					<Text style={ styles.loading } onPress={ this.handleTryAgain }>
+						{ 'Try again' }
+					</Text>
+				</View>
+			);
+		}
 
-		if (this.state.data === null) return (
-			<View style={styles.container}>
-				<Text style={styles.loading}>Loading.. Please wait</Text>
-			</View>
-		)
+		if (this.state.data === null) {
+			return (
+				<View style={ styles.container }>
+					<Text style={ styles.loading }>{ 'Loading.. Please wait' }</Text>
+				</View>
+			);
+		}
 
-		var NavigationBarRouteMapper = {
+		const NavigationBarRouteMapper = {
 			LeftButton(route, navigator, index, navState) {
-		    	if (index > 0) {
-			      return (
-			        <TouchableHighlight
-			        	underlayColor="transparent"
-			        	onPress={() => { if (index > 0) { navigator.pop() } }}
-						>
-			        	<Text style={ styles.leftNavButtonText }>{'<'} Back</Text>
-			        </TouchableHighlight>)
-		    	} else if (route.name == 'Main') {
+				if (index > 0) {
 					return (
-					<TouchableHighlight
-			        	underlayColor="transparent"
-			        	onPress={() => { navigator.push({name: 'List'}) }}
-						>
-			        	<Text style={ styles.leftNavButtonText }>List</Text>
-			        </TouchableHighlight>)
-				} else { return null }
+						<View>
+							<TouchableHighlight
+								underlayColor="transparent"
+								onPress={ () => {
+									navigator.pop();
+								} }
+								>
+								<Text style={ styles.leftNavButtonText }>{ 'Back' }</Text>
+							</TouchableHighlight>
+						</View>
+					);
+				} else if (route.name === 'Main') {
+					return (
+						<TouchableHighlight
+							underlayColor="transparent"
+							onPress={ () => {
+								navigator.push({ name: 'List' });
+							} }
+							>
+							<Text style={ styles.leftNavButtonText }>{ 'List' }</Text>
+						</TouchableHighlight>
+					);
+				}
+
+				return null;
 			},
 			RightButton(route, navigator, index, navState) {
-			    if (route.onPress) return (
-			      <TouchableHighlight
-					  underlayColor="transparent"
-			         onPress={ () => route.onPress(navigator) }>
-			         <Text style={ styles.rightNavButtonText }>
-			              { route.rightText || 'Right Button' }
-			         </Text>
-			       </TouchableHighlight>)
+				if (route.onPress) {
+					return (
+						<TouchableHighlight
+							underlayColor="transparent"
+							onPress={ () => route.onPress(navigator) }
+							>
+							<Text style={ styles.rightNavButtonText }>
+								{ route.rightText || 'Right Button' }
+							</Text>
+						</TouchableHighlight>
+					);
+				}
 			},
 			Title(route, navigator, index, navState) {
-		    	return <Text style={ styles.navBarTitle	 }>SpendSmart</Text>
-		  	}
+				return (
+					<Text style={ styles.navBarTitle }>{ 'SpendSmart' }</Text>
+				);
+			}
 		};
 
-	    return (
+		return (
 			<Navigator
-		    	style={{ flex:1 }}
-		        initialRoute={{
+				style={ styles.navigator }
+				initialRoute={{
 					name: 'Main',
-					rightText: 'Add +',
-					onPress: nav => {nav.push({ name: 'Add' })}
+					rightText: 'Add',
+					onPress: (navigator) => {
+						navigator.push({ name: 'Add' });
+					}
 				}}
-		        renderScene={ this.renderScene }
+				renderScene={ this.renderScene }
 				navigationBar={
 					<Navigator.NavigationBar
-			    		style={ styles.navbar }
-			    		routeMapper={ NavigationBarRouteMapper }
+						style={ styles.navbar }
+						routeMapper={ NavigationBarRouteMapper }
 						/>
 				}
 				/>
-	    );
+		);
 	}
 }

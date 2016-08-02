@@ -11,7 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
-import SpendSmart from('./components/SpendSmart.js')
+import SpendSmart from './components/SpendSmart.js';
 
 
 AppRegistry.registerComponent('SpendSmart', () => SpendSmart);

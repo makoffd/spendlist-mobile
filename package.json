@@ -3,11 +3,23 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "api": "node server/api/server.js"
   },
   "dependencies": {
+    "babel-preset-react-native-stage-0": "^1.0.1",
     "react": "^15.1.0",
-    "react-native": "^0.27.0-rc2",
-    "superagent": "^2.0.0"
+    "react-native": "^0.29.0",
+    "react-native-chart": "^1.0.7-beta",
+    "react-native-loading-spinner-overlay": "^0.2.3",
+    "react-native-popup": "^0.5.2",
+    "react-native-swipeout": "git+https://github.com/dancormier/react-native-swipeout",
+    "superagent": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.1.0",
+    "eslint": "^3.0.1",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-react": "^5.2.2"
   }
 }
