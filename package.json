@@ -8,18 +8,18 @@
   },
   "dependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1",
-    "react": "^15.1.0",
-    "react-native": "^0.29.0",
-    "react-native-chart": "^1.0.7-beta",
-    "react-native-loading-spinner-overlay": "^0.2.3",
-    "react-native-popup": "^0.5.2",
-    "react-native-swipeout": "git+https://github.com/dancormier/react-native-swipeout",
-    "superagent": "^2.1.0"
+    "react": "^15.3.2",
+    "react-native": "^0.36.0",
+    "react-native-chart": "^1.0.8-beta",
+    "react-native-loading-spinner-overlay": "^0.3.0",
+    "react-native-popup": "^0.6.0",
+    "react-native-swipeout": "git+https://github.com/makoffd/react-native-swipeout",
+    "superagent": "^2.3.0"
   },
   "devDependencies": {
-    "babel-eslint": "^6.1.0",
-    "eslint": "^3.0.1",
+    "babel-eslint": "^7.1.0",
+    "eslint": "^3.9.0",
     "eslint-plugin-babel": "^3.3.0",
-    "eslint-plugin-react": "^5.2.2"
+    "eslint-plugin-react": "^6.4.1"
   }
 }

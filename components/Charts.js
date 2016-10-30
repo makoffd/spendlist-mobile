@@ -3,7 +3,7 @@ import {
 	View
 } from 'react-native';
 import Chart from 'react-native-chart';
-import styles from '../styles/styles.js';
+import styles from '../styles';
 
 
 const data = [

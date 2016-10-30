@@ -3,8 +3,8 @@ import {
 	View,
 	Text
 } from 'react-native';
-import styles from '../styles/styles.js';
-import { formatNumber } from '../helpers/helpers.js';
+import styles from '../styles';
+import { formatNumber } from '../helpers';
 
 export default class MainLine extends Component {
 	static propTypes = {

@@ -54,10 +54,12 @@ export default {
 		marginLeft: 40,
 		marginRight: 40
 	},
-	pickerWrap: { },
-	picker: {
+	pickerWrap: {
+		marginTop: 10,
 		marginLeft: 40,
 		marginRight: 40
+	},
+	picker: {
 	},
 	mainInfo: {
 		paddingTop: 20
@@ -116,14 +118,15 @@ export default {
 	buttonWrap: {
 		flexDirection: 'column',
 		margin: 10,
-		backgroundColor: '#A3FF8C'
+		marginTop: 40,
+		backgroundColor: '#A3FF8C',
+		height: 50,
+		justifyContent: 'center'
 	},
 	button: {
 		fontSize: 20,
 		textAlign: 'center',
-		flex: 1,
-		alignItems: 'center',
-		paddingBottom: 20
+		lineHeight: 20
 	},
 	listRow: {
 		flexDirection: 'row',

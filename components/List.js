@@ -3,12 +3,12 @@ import {
 	View,
 	ListView
 } from 'react-native';
-import ListRow from './ListRow.js';
+import ListRow from './ListRow';
 import Popup from 'react-native-popup';
 
 import request from 'superagent';
-import styles from '../styles/styles.js';
-import config from '../configs/config.js';
+import styles from '../styles';
+import config from '../configs';
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
@@ -56,16 +56,25 @@ export default class List extends Component {
 
 	render() {
 		return (
-			<View shouldRasterizeIOS={ true } style={ styles.container }>
+			<View
+				shouldRasterizeIOS = { true }
+				style = { styles.container }
+				>
 				<ListView
-					dataSource={ this.state.dataSource }
-					renderRow={
-						rowData => <ListRow onDelete={ this.handleDeleteClick } { ...rowData }/>
+					dataSource = { this.state.dataSource }
+					renderRow = {
+						rowData =>
+							<ListRow
+								onDelete={ this.handleDeleteClick }
+								{ ...rowData }
+								/>
 					}
 					/>
-				<Popup ref={ (popup) => {
-					this.popup = popup;
-				} }/>
+				<Popup
+					ref = { (popup) => {
+						this.popup = popup;
+					} }
+					/>
 			</View>
 		);
 	}

@@ -73,8 +73,9 @@ export function getThisMonthAmount(data) {
 export function getThisMonthFoodAmount(data) {
     return data
         .filter(el => (el.category == 'food'
-        && (toDate(el.date) >= monthStart)
-        && (toDate(el.date) < monthEnd)))
+            && (toDate(el.date) >= monthStart)
+            && (toDate(el.date) < monthEnd))
+        )
         .map(el => el.amount)
         .reduce((a, b) => Number(a) + Number(b), 0)
 }

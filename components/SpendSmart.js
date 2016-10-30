@@ -6,8 +6,8 @@ import {
 	TouchableHighlight,
 	AppState
 } from 'react-native';
-import styles from '../styles/styles.js';
-import config from '../configs/config.js';
+import styles from '../styles';
+import config from '../configs';
 import { getSortedByDate } from '../helpers/data.js';
 import Main from './Main.js';
 import AddSum from './AddSum.js';

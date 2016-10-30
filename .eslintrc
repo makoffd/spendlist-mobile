@@ -1,7 +1,8 @@
 {
   "parser": "babel-eslint",
   "env": {
-	"es6": true
+	"es6": true,
+    "browser": true
   },
   "parserOptions": {
 	"ecmaVersion": 7,
@@ -269,7 +270,7 @@
 	"babel/generator-star-spacing": [ 2, "after" ],
 
 	// react
-	
+
 	"jsx-quotes": [ 1, "prefer-double" ],
 	"react/display-name": 0,
 	"react/forbid-prop-types": [ 2, { "forbid": [ "any" ] } ],

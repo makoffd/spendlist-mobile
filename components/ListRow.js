@@ -5,8 +5,8 @@ import {
 } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 
-import styles from '../styles/styles.js';
-import { formatNumber } from '../helpers/helpers.js';
+import styles from '../styles';
+import { formatNumber } from '../helpers';
 
 export default class ListRow extends Component {
 	static propTypes = {

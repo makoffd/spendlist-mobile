@@ -4,7 +4,7 @@ import {
 	Text
 } from 'react-native';
 import MainLine from './MainLine.js';
-import styles from '../styles/styles.js';
+import styles from '../styles';
 import * as data from '../helpers/data.js';
 
 export default class Main extends Component {
@@ -25,7 +25,6 @@ export default class Main extends Component {
 		return (
 			<View style={ styles.container }>
 				<View style={ styles.mainInfo }>
-
 					<MainLine
 						label="This week amount:"
 						number={ data.getThisWeekAmount(this.props.data) }
@@ -51,9 +50,10 @@ export default class Main extends Component {
 						number={ data.getThisMonthFoodAmount(this.props.data) }
 						/>
 				</View>
+
 				<View style={ styles.buttonWrap }>
 					<Text style={ styles.button } onPress={ this.handleAddClick }>
-						{ '\nAdd' }
+						{ 'Add' }
 					</Text>
 				</View>
 
