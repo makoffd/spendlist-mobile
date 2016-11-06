@@ -81,7 +81,7 @@ export default class AddSum extends Component {
 
 	render() {
 		return (
-			<View style={ styles.container }>
+			<View style={{ ...styles.container, ...styles.addsum }}>
 				<View style={ styles.inputWrap }>
 					<TextInput
 						keyboardType="numeric"

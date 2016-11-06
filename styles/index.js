@@ -151,5 +151,8 @@ export default {
 	chart: {
 		width: 300,
 		height: 300
+	},
+	addsum: {
+		paddingTop: 100
 	}
 };
